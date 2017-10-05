@@ -57,7 +57,7 @@ function drawBoard(size) {
     for(var x=0; x<board.length; x++) {
         c+="<tr>";
         for(var y=0; y<board.length; y++) {
-            c+="<td onclick='press("+x+", "+y+")'>x</td>";
+            c+="<td onclick='press("+x+", "+y+")'></td>";
         }
         c+="</tr>";
     }
@@ -80,7 +80,8 @@ function neighbours(size,x,y) {
     }
   }
   return list;
-}  
+    console.log(list);
+}
 
 function startGame() {
     var s,v;

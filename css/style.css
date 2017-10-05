@@ -40,21 +40,29 @@ a:hover {
     transform: translateX(-50%);
 }
 table {
+    top: 180px;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
 
 td {
-    border: 2px solid #000;
-    width: 30px !important;
-    height: 30px;
+    background-image: url(../img/tile.jpg);
+    background-size: 40px;
+    background-repeat: no-repeat;
+    border: 2px solid #acacac;
+    width: 40px !important;
+    height: 40px;
     text-align: center;
     cursor: pointer;
 }
+
 td:hover {
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    opacity: 0.3;
 }
+
+
+
 input {
     width: auto;
     margin: 11px;
@@ -64,3 +72,4 @@ input {
 label {
     margin: 6px;
 }
+
