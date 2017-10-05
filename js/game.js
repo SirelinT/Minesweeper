@@ -11,13 +11,14 @@ function myFun(x) {
 }
 
 function press(x, y) {
-    //console.log(x+","+y);
+    console.log(x+","+y);
 }
 
 function makeBoard(size, bombs) {
     var board = [];
-    
-    //console.log("makeboard");
+    var bombs = document.getElementById("bombs").value;
+    console.log("Pomme on: " + bombs);
+    console.log("makeboard");
   
     if (bombs >= size * size) {
         throw "too many bombs for this size";
@@ -34,6 +35,8 @@ function makeBoard(size, bombs) {
         // generate random x and y in range 0...size-1
         x=Math.floor(Math.random() * size);
         y=Math.floor(Math.random() * size);
+        console.log("X: ", x, " Y: ", y, " Boardi massiiv: ", board[x]);
+        console.log("Väljaku suurus: ", size);
         // put bomb on x,y unless there is a bomb already
         if (board[x][y]!=1) {
             board[x][y]=1;
@@ -47,8 +50,8 @@ function makeBoard(size, bombs) {
 }
 function drawBoard(size) {
     var c="";
-    var board = makeBoard(size,5);
-    //console.log(board);
+    var board = makeBoard(size, bombs);
+    console.log(size);
     
     c="<table>";
     for(var x=0; x<board.length; x++) {
@@ -85,8 +88,9 @@ function startGame() {
     s=gid("sizeselect");
     console.log("index: "+s.selectedIndex);
     v=s.options[s.selectedIndex].value;
-    console.log(v);
+    console.log("ruute on: " + v);
     
     var b=makeBoard(parseInt(v),2);
+    console.log("board b: ", b);
     drawBoard(b);
 }
