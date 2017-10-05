@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html class="background">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Minesweeper</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <script src="js/game.js"></script>
+    <script src="js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div>
+                <h1>Minesweeper</h1></div>
+        </div>
+        <div class="row">
+            <div class="game">
+                <select id="sizeselect">
+                    <option value="6">6 ruutu</option>
+                    <option value="9">9 ruutu</option>
+                    <option value="16">16 ruutu</option>
+                </select>
+                <input type="text" id="bombs" placeholder="Number of bombs">
+                <button onclick="startGame()">Alusta</button>
+                <!--<div class="options row">
+                    <button onclick="drawBoard(6)">6</button>
+                    <button onclick="drawBoard(9)">9</button>
+                    <button onclick="drawBoard(16)">16</button>
+               </div>-->
+                <div class="board">
+                    <div id="koht1">algne sisu</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+</body>
