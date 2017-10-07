@@ -1,7 +1,7 @@
 'use strict';
 
 function gid(x) {
-    return document.getElementById(x);
+    return document.getElementById(x).value;
 }
 
 function myFun(x) {
@@ -16,55 +16,49 @@ function press(x, y) {
 
 function makeBoard(size, bombs) {
     var board = [];
-    var bombs = document.getElementById("bombs").value;
-    console.log("Pomme on: " + bombs);
     console.log("makeboard");
   
     if (bombs >= size * size) {
-        throw "too many bombs for this size";
+        alert("too many bombs for this size");
+        return;
     }
     // initialize board, filling with zeros
-    for (var x=0; x<size; x++) {
-        board[x]=[]; // insert empty subarray
-    for (var y=0; y<size; y++) board[x][y]=0;
+    for (var x = 0; x < size; x++) {
+        board[x] = []; // insert empty subarray
+    for (var y = 0; y<size; y++) board[x][y]=0;
 }
 
     // now fill board with bombs in random positions
-    var i=bombs;
-    while (i>0) {
+    while (bombs > 0) {
         // generate random x and y in range 0...size-1
-        x=Math.floor(Math.random() * size);
-        y=Math.floor(Math.random() * size);
-        console.log("X: ", x, " Y: ", y, " Boardi massiiv: ", board[x]);
-        console.log("Väljaku suurus: ", size);
+        x = Math.floor(Math.random() * size);
+        y = Math.floor(Math.random() * size);
+
         // put bomb on x,y unless there is a bomb already
         if (board[x][y]!=1) {
             board[x][y]=1;
-            i--; // bomb successfully positioned, one less to go
-            console.log("positioned "+x+", "+y+" yet to go "+i);
+            bombs--; // bomb successfully positioned, one less to go
         }
     }
-    return board;
-    console.log("tere");
+    drawBoard(board);
     
 }
-function drawBoard(size) {
-    var c="";
-    var board = makeBoard(size, bombs);
-    console.log(size);
+function drawBoard(board) {
+    var c;
     
     c="<table>";
-    for(var x=0; x<board.length; x++) {
+    
+    for(var x = 0; x < board.length; x++) {
         c+="<tr>";
-        for(var y=0; y<board.length; y++) {
-            c+="<td onclick='press("+x+", "+y+")'></td>";
+        for(var y = 0; y < board.length; y++) {
+            c += "<td onclick='press("+x+", "+y+")'></td>";
         }
-        c+="</tr>";
+        c += "</tr>";
     }
     
-    c+="</table>";
+    c += "</table>";
     //console.log(c);
-    gid("koht1").innerHTML = c;
+    document.getElementById('koht1').innerHTML = c;
     //$("#koht1").html(c);
 }
 function neighbours(size,x,y) {
@@ -84,14 +78,11 @@ function neighbours(size,x,y) {
 }
 
 function startGame() {
-    var s,v;
-    console.log("startGame");
-    s=gid("sizeselect");
-    console.log("index: "+s.selectedIndex);
-    v=s.options[s.selectedIndex].value;
-    console.log("ruute on: " + v);
+    var numberOfSquares, numberOfBombs, boardSize;
     
-    var b=makeBoard(parseInt(v),2);
-    console.log("board b: ", b);
-    drawBoard(b);
+    numberOfSquares = gid("sizeselect");
+    numberOfBombs = gid("bombs");
+    boardSize = parseInt(numberOfSquares);
+    //boardSize = makeBoard(parseInt(numberOfSquares), 2);
+    makeBoard(boardSize, numberOfBombs);
 }
