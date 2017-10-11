@@ -14,7 +14,6 @@ function gid(x) {
 
 function myFun(x) {
     var y = "Siin on uus sisu ja " + x;
-    console.log("Vajutas nuppu");
     gid("koht1").innerHTML = y;
 }
 
@@ -32,20 +31,18 @@ function startGame() {
 }
 
 function press(x, y) {
-     console.log(x+","+y);
-     document.getElementById(x+"-"+y).setAttribute("style", "background-color: gray");
-     console.log("naabrid: ", getNeighbours(size, x, y));
-     var listike = getNeighbours(size, x, y);
-     //document.getElementById(x+"-"+y).innerHTML = closerBombs(listike);
-     if (closerBombs(listike) == "0")
-     {
-         for (var i = 0; i < listike.length; i++)
-         {
-             var neighbourBombs = closerBombs(GetNeighbours(size, listike[i][0], listike[i][1]));
-             document.getElementById(listike[i][0]+"-"+listike[i][1]).innerHTML = neighbourBombs;
+    console.log(x+"-"+y);
+    document.getElementById(x+"-"+y).setAttribute("style", "background-color: gray");
+    //console.log("naabrid: ", getNeighbours(size, x, y));
+    var neighboursList = getNeighbours(size, x, y);
+    document.getElementById(x+"-"+y).innerHTML = closerBombs(neighboursList);
+    if (closerBombs(neighboursList) === "0") {
+         for (var i = 0; i < neighboursList.length; i++) {
+             var neighbourBombs = closerBombs(GetNeighbours(size, neighboursList[i][0], neighboursList[i][1]));
+             document.getElementById(neighboursList[i][0]+"-"+neighboursList[i][1]).innerHTML = neighbourBombs;
          }
      }
-     console.log("Läheduses pomme: " +closerBombs(listike));
+     console.log("Läheduses pomme: ", closerBombs(neighboursList));
      console.log("Vajutasid: "+x+" ja "+y);
      if (gameOver == false){
          clicks++;
@@ -128,10 +125,10 @@ function getNeighbours(size,x,y) {
         list.push([x+i,y+j]);  
       }
     }
-  }console.log("list", list);
+  }
   return list;
-    
-}
+}  
+
 function closerBombs(array) {
     
     var totalBombs = 0;
@@ -141,7 +138,10 @@ function closerBombs(array) {
         {
             totalBombs++;
         }
-    }
+    }//console.log(closerBombs());
     return totalBombs;
 }   
 
+function refresh() {
+    location.reload();
+}

@@ -1,48 +1,30 @@
+.background {
+    background-image: url(../img/taust2.png);
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
 h1 {
     text-align: center;
 }
-a {
-    color: #000;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #000;
-}
-
 .options button {
     margin: 20px;
     width: 40px;
 }
-
-.square-nr img {
-    width: 70%;
-}
-
-.square-nr button {
-    padding: 0;
-    border: 0;
-    background-color: rgba(255, 255, 255, 0);
-}
-
-.bomb img {
-    width: 30px;
-}
-.description {
-    top: 100px;
-    padding: 0 50px !important;
-    text-align: justify;
-}
 .game {
+    text-align: center;
     top: 100px;
     width: 80%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    box-shadow: 2px 3px 8px 1px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    background-color: #fff;
 }
 
 td {
-    /*background-image: url(../img/tile.jpg);*/
+    background-color: #e0dedc;
     background-size: 40px;
     background-repeat: no-repeat;
     border: 2px solid #acacac;
@@ -55,21 +37,41 @@ td {
 td:hover {
     opacity: 0.3;
 }
-
-
-
 input {
     width: auto;
     margin: 11px;
-    border: 1px solid #000;
+    border: 1px solid #acacac;
     border-radius: 4px;
+    text-align: center;
+    
 }
-label {
-    margin: 6px;
-}
+
 button {
     margin: 20px!important; 
+    border-radius: 8px;
 }
 .alert {
     text-align: center;
 }
+table {
+    margin: 0 auto;
+}
+
+@media only screen and (max-width: 768px) {
+    .game {
+        padding: 30px 0;
+        width: 95%;
+    }
+}
+@media only screen and (min-width: 992px) {
+    .game {
+        width: 70%;
+    }
+}
+@media only screen and (min-width: 1200px) {
+    .game {
+        width: 50%;
+    }
+}
+    
+    
