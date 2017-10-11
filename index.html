@@ -23,16 +23,16 @@
                     <option value="9">9 ruutu</option>
                     <option value="16">16 ruutu</option>
                 </select>
-                <input type="number" id="bombs" placeholder="Number of bombs">
-                <button onclick="startGame()">Alusta</button>
-                            
+                <input type="number" id="bombs" placeholder="Number of bombs"><br>
+                <button onclick="startGame()">Make Board</button>
+                <button onclick="refresh()">Start Over</button>
+                <div class="alert" id="alert"></div>
+                <div class="board">
+                    <div id="koht1"></div>
+                </div>            
             </div>
         </div>   
-        <div class="row">
-            <div class="board">
-                <div id="koht1"></div>
-            </div>
-        </div>
+       
     </div>
     
     

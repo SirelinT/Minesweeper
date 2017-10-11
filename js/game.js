@@ -1,5 +1,13 @@
 'use strict';
 
+var gameStarted;
+var gameOver;
+var clicks = 0;
+var size;
+var board = [];
+var bombs;
+
+
 function gid(x) {
     return document.getElementById(x).value;
 }
@@ -10,16 +18,62 @@ function myFun(x) {
     gid("koht1").innerHTML = y;
 }
 
+function startGame() {
+    var numberOfSquares, numberOfBombs, boardSize;
+    
+    numberOfSquares = gid("sizeselect");
+    numberOfBombs = gid("bombs");
+    boardSize = parseInt(numberOfSquares);
+    //boardSize = makeBoard(parseInt(numberOfSquares), 2);
+    makeBoard(boardSize, numberOfBombs);
+    gameStarted = true;
+    gameOver = false;
+    clicks = 0;
+}
+
 function press(x, y) {
-    console.log(x+","+y);
+     console.log(x+","+y);
+     document.getElementById(x+"-"+y).setAttribute("style", "background-color: gray");
+     console.log("naabrid: ", getNeighbours(size, x, y));
+     var listike = getNeighbours(size, x, y);
+     //document.getElementById(x+"-"+y).innerHTML = closerBombs(listike);
+     if (closerBombs(listike) == "0")
+     {
+         for (var i = 0; i < listike.length; i++)
+         {
+             var neighbourBombs = closerBombs(GetNeighbours(size, listike[i][0], listike[i][1]));
+             document.getElementById(listike[i][0]+"-"+listike[i][1]).innerHTML = neighbourBombs;
+         }
+     }
+     console.log("Läheduses pomme: " +closerBombs(listike));
+     console.log("Vajutasid: "+x+" ja "+y);
+     if (gameOver == false){
+         clicks++;
+     }
+     if (board[x][y] == 1)
+     {
+        console.log("Astusid pommi otsa!");
+        document.getElementById(x+"-"+y).setAttribute("style", "background-color: red");
+        document.getElementById("alert").innerHTML = "Mäng on läbi! Sul kulus lõpetamiseks "+clicks+" käiku.";
+        gameOver = true;
+     }
+     else if (board[x][y] == 0) console.log("Vedas!");
+     if (size*size - bombs == clicks){
+         document.getElementById("alert").innerHTML = "Palju õnne! Sa võitsid.";
+         gameOver = true;
+     }
 }
 
 function makeBoard(size, bombs) {
-    var board = [];
+    
     console.log("makeboard");
   
     if (bombs >= size * size) {
-        alert("too many bombs for this size");
+        document.getElementById("alert").innerHTML = "too many bombs for this size";
+        return;
+    }
+    if (bombs == 0 || bombs == "") {
+        document.getElementById("alert").innerHTML = "Please enter the number of bombs!";
         return;
     }
     // initialize board, filling with zeros
@@ -41,27 +95,29 @@ function makeBoard(size, bombs) {
         }
     }
     drawBoard(board);
+    console.log(board);
     
 }
+
 function drawBoard(board) {
     var c;
-    
-    c="<table>";
+   c="<table>";
     
     for(var x = 0; x < board.length; x++) {
         c+="<tr>";
         for(var y = 0; y < board.length; y++) {
-            c += "<td onclick='press("+x+", "+y+")'></td>";
+            c += "<td id="+ x + "-" + y +" onclick='press("+x+", "+y+")'></td>";
         }
         c += "</tr>";
     }
     
     c += "</table>";
+    
     //console.log(c);
     document.getElementById('koht1').innerHTML = c;
     //$("#koht1").html(c);
 }
-function neighbours(size,x,y) {
+function getNeighbours(size,x,y) {
   var list=[];
   for (var i=-1; i<=1; i++) {    
     for (var j=-1; j<=1; j++) {
@@ -72,17 +128,20 @@ function neighbours(size,x,y) {
         list.push([x+i,y+j]);  
       }
     }
-  }
+  }console.log("list", list);
   return list;
-    console.log(list);
-}
-
-function startGame() {
-    var numberOfSquares, numberOfBombs, boardSize;
     
-    numberOfSquares = gid("sizeselect");
-    numberOfBombs = gid("bombs");
-    boardSize = parseInt(numberOfSquares);
-    //boardSize = makeBoard(parseInt(numberOfSquares), 2);
-    makeBoard(boardSize, numberOfBombs);
 }
+function closerBombs(array) {
+    
+    var totalBombs = 0;
+    for (var i = 0; i < array.length; i++){
+         
+        if (board[array[i][0]][array[i][1]] == 1)
+        {
+            totalBombs++;
+        }
+    }
+    return totalBombs;
+}   
+

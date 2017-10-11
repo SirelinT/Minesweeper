@@ -35,19 +35,14 @@ a:hover {
 }
 .game {
     top: 100px;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-table {
-    top: 180px;
+    width: 80%;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
 
 td {
-    background-image: url(../img/tile.jpg);
+    /*background-image: url(../img/tile.jpg);*/
     background-size: 40px;
     background-repeat: no-repeat;
     border: 2px solid #acacac;
@@ -72,4 +67,9 @@ input {
 label {
     margin: 6px;
 }
-
+button {
+    margin: 20px!important; 
+}
+.alert {
+    text-align: center;
+}
