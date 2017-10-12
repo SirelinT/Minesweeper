@@ -49,6 +49,10 @@ input {
 button {
     margin: 20px!important; 
     border-radius: 8px;
+    
+}
+table.disabled {
+   pointer-events: none;
 }
 .alert {
     text-align: center;
