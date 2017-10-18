@@ -18,11 +18,11 @@ function myFun(x) {
 }
 
 function startGame() {
-    var numberOfSquares, numberOfBombs, boardSize;
+    var numberOfSquares, bombs;
     numberOfSquares = gid("sizeselect");
-    numberOfBombs = gid("bombs");
-    boardSize = parseInt(numberOfSquares);
-    makeBoard(boardSize, numberOfBombs);
+    bombs = gid("bombs");
+    size = parseInt(numberOfSquares);
+    makeBoard(size, bombs);
     gameStarted = true;
     gameOver = false;
     clicks = 0;
@@ -47,14 +47,12 @@ function press(x, y) {
      }
      if (board[x][y] == 1) {
         console.log("You died!");
-        //document.getElementById(x+"-"+y).setAttribute("style", "background-color: red");
-        //document.getElementById("alert").innerHTML = "Mäng on läbi! Sul kulus lõpetamiseks "+clicks+" käiku.";
         gameOver = true;
          alert("GAME OVER! You did " +clicks+ " steps.");
          location.reload();
      }
+    console.log(size, bombs, clicks);
      if (size*size - bombs === clicks){
-         //document.getElementById("alert").innerHTML = "Palju õnne! Sa võitsid.";
          //gameOver = true;
          alert("Congratulations You won!!");
          location.reload();
@@ -132,6 +130,7 @@ function getNeighbours(size,x,y) {
       }
     }
   }
+    console.log(size, x, y);
   return list;
 }  
 
@@ -139,7 +138,6 @@ function closerBombs(array) {
     
     var totalBombs = 0;
     for (var i = 0; i < array.length; i++){
-        console.log("eloo" + array[i][1]+ "-" + array[i][0]);         
         if (board[array[i][1]][array[i][0]] == 1)
         {
             totalBombs++;
