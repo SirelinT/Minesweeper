@@ -6,6 +6,8 @@ var clicks = 0;
 var size;
 var board = [];
 var bombs;
+var bomb_count = 0;
+var ary = [];
 
 
 function gid(x) {
@@ -21,6 +23,7 @@ function startGame() {
     var numberOfSquares, bombs;
     numberOfSquares = gid("sizeselect");
     bombs = gid("bombs");
+    bomb_count = parseInt(bombs);
     size = parseInt(numberOfSquares);
     makeBoard(size, bombs);
     gameStarted = true;
@@ -29,33 +32,61 @@ function startGame() {
 }
 
 function press(x, y) {
-    console.log(x+"-"+y);
-    document.getElementById(x+"-"+y).setAttribute("style", "background-color: gray");
+    //console.log(x+"-"+y);
+    var cell = document.getElementById(x+"-"+y);
+    
+    if (gameOver == false){
+         if (cell.innerText == "") {
+         clicks++;
+         }
+    }
+    
+    
+    
+    cell.setAttribute("style", "background-color: gray");
     var neighboursList = getNeighbours(size, x, y);
-    console.log(closerBombs(neighboursList));
+    //console.log(closerBombs(neighboursList));
     document.getElementById(x+"-"+y).innerHTML = closerBombs(neighboursList);
-    if (closerBombs(neighboursList) === "0") {
+    
+    if (closerBombs(neighboursList) === 0) {
+        var a, b;
+        
          for (var i = 0; i < neighboursList.length; i++) {
-             var neighbourBombs = closerBombs(GetNeighbours(size, neighboursList[i][0], neighboursList[i][1]));
-             document.getElementById(neighboursList[i][0]+"-"+neighboursList[i][1]).innerHTML = neighbourBombs;
+             a = neighboursList[i][0];
+             b = neighboursList[i][1];
+             
+             
+             var neighbourBombs = closerBombs(getNeighbours(size, a, b));
+             var neighbour = document.getElementById(a + "-" + b);
+             if (neighbour.innerText == "") {
+                 clicks++;
+             }
+             
+             neighbour.innerHTML = neighbourBombs;
+             
+             
+             
          }
      }
-     console.log("Läheduses pomme: ", closerBombs(neighboursList));
-     console.log("Vajutasid: "+x+" ja "+y);
-     if (gameOver == false){
-         clicks++;
-     }
+    console.log("c:" + clicks);
+     //console.log("Läheduses pomme: ", closerBombs(neighboursList));
+     //console.log("Vajutasid: "+x+" ja "+y);
+     
      if (board[x][y] == 1) {
         console.log("You died!");
         gameOver = true;
          alert("GAME OVER! You did " +clicks+ " steps.");
-         location.reload();
+         ary.unshift("You lost! You did " + clicks +"steps<br>");
+         document.getElementById("msg").innerHTML = ary;
+         refresh();
      }
-    console.log(size, bombs, clicks);
-     if (size*size - bombs === clicks){
-         //gameOver = true;
+    //console.log(size, bomb_count, clicks);
+     if (size*size - bomb_count === clicks){
+         gameOver = true;
          alert("Congratulations You won!!");
-         location.reload();
+         ary.unshift("You won! You did " + clicks +"steps<br>");
+         document.getElementById("msg").innerHTML = ary;
+         refresh();
      }
      else if (board[x][y] == 0) console.log("Still alive!");
      
@@ -130,7 +161,6 @@ function getNeighbours(size,x,y) {
       }
     }
   }
-    console.log(size, x, y);
   return list;
 }  
 
@@ -138,7 +168,7 @@ function closerBombs(array) {
     
     var totalBombs = 0;
     for (var i = 0; i < array.length; i++){
-        if (board[array[i][1]][array[i][0]] == 1)
+        if (board[array[i][0]][array[i][1]] == 1)
         {
             totalBombs++;
         }
@@ -147,5 +177,7 @@ function closerBombs(array) {
 } 
 
 function refresh() {
-    location.reload();
+    gameOver = false;
+    startGame();
+    
 }
